@@ -70,6 +70,7 @@ const SignIn = () => {
                     {loading ? <span>Loading</span> : <span>Sign In</span>}
             </Button>
         </div>
+        <p style={{color:'#00ADB5', fontSize:'0.8rem', paddingTop:'10px'}}>Reset password</p>
     </div>
   )
 }

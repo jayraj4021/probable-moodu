@@ -4,27 +4,31 @@ import './signup.css';
 import Button from '@material-ui/core/Button';
 
 const SignUp = () => {
-  
+
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
-  const handleSignUp = async (email,password) => {
-    try {
-      setLoading(true)
-      const { user, session, error } = await supabase.auth.signUp({
-        email,
-        password
-      })
-      if (error) throw error
-      alert('Check your email for the verification link!')
-      console.log('try block',user,session)
-    } catch (error) {
-      alert(error.error_description || error.message)
-    } finally {
-      setLoading(false)
-    }
+  const handleSignUp = async (email,password,confirmPassword) => {
+    if(password===confirmPassword) {
+        try {
+          setLoading(true)
+          const { user, session, error } = await supabase.auth.signUp({
+            email,
+            password
+          })
+          if (error) throw error
+          alert('Check your email for the verification link!')
+          console.log('try block',user,session)
+        } catch (error) {
+          alert(error.error_description || error.message)
+        } finally {
+          setLoading(false)
+        }
+    } else {
+      alert('Password does not match re-entered password !!!!')
+    } 
   }
 
   return (
@@ -47,7 +51,7 @@ const SignUp = () => {
             style={{width:'100%', height:'30px',marginBottom:'25px', paddingLeft:'10px'}}
         />
 
-        <p>Confirm Password</p>
+        <p>Re-enter Password</p>
         <input
             type="password"
             placeholder="Your password"
@@ -63,7 +67,7 @@ const SignUp = () => {
                 size='small' 
                 onClick={(e) => {
                     e.preventDefault()
-                    handleSignUp(email,password)
+                    handleSignUp(email,password,confirmPassword)
                 }}
                 disabled={loading}
                 style={{color:'white', width:'100%'}}>
