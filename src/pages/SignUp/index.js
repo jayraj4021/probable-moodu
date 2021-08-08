@@ -4,6 +4,7 @@ import './signup.css';
 import Button from '@material-ui/core/Button';
 
 const SignUp = () => {
+  
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
