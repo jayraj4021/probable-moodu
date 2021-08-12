@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { supabase } from '../../supabaseClient';
+import { useHistory } from "react-router-dom";
 import './signin.css';
 import Button from '@material-ui/core/Button';
 
 const SignIn = () => {
   
+  let history = useHistory();
+
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -16,14 +19,15 @@ const SignIn = () => {
         email,
         password,
       })
-      if (error) throw error
-      alert('Signin successful!!!!')
-      console.log('try block',user,session)
+      if (error) throw error;
+      alert('Signin successful!!!!');
+      history.push("/home");
+      console.log('try block',user,session);
     } catch (error) {
       alert(error.error_description || error.message)
       console.log('catch error block')
     } finally {
-      setLoading(false)
+      //setLoading(false)
       console.log('finally block')
     }
   }

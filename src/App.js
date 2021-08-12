@@ -3,8 +3,11 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
-import { authProtectedRoutes, publicRoutes} from './routes';
 import Header from './components/Header/Header'
+import LandingPage from "./pages/LandingPage";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Home from './pages/Home';
 
 function App() {
   
@@ -29,7 +32,7 @@ function App() {
         <Router>
           <Header session={session}/>
           <Switch>
-            {authProtectedRoutes.map((apr,index)=>(<Route key={index} {...apr}></Route>))}
+              <Route path="/home" exact render={()=><Home/>}/>
           </Switch>
         </Router>
         :
@@ -37,7 +40,9 @@ function App() {
           <Router>
             <Header session={session}/>
             <Switch>
-              {publicRoutes.map((pr,index)=>(<Route key={index} {...pr}></Route>))}
+              <Route path="/" exact render={()=><LandingPage/>}/>
+              <Route path="/signin" exact render={()=><SignIn/>}/>
+              <Route path="/signup" exact render={()=><SignUp/>}/>
             </Switch>
           </Router>
         </div>
