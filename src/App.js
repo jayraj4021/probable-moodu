@@ -11,11 +11,14 @@ function App() {
   const [session, setSession] = useState(null);
 
   useEffect(() => {
+    // supabase.auth.session() returns session data if there is an active session
     setSession(supabase.auth.session());
 
     supabase.auth.onAuthStateChange((_event, session) => {
+      console.log('auth event', _event, session);
       setSession(session);
     })
+    
   }, []);
   
   console.log('App.js ---- session ----',session);
@@ -24,6 +27,7 @@ function App() {
     <div className="App">
       {session ? 
         <Router>
+          <Header session={session}/>
           <Switch>
             {authProtectedRoutes.map((apr,index)=>(<Route key={index} {...apr}></Route>))}
           </Switch>
@@ -31,7 +35,7 @@ function App() {
         :
         <div style={{display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column'}}>
           <Router>
-            <Header/>
+            <Header session={session}/>
             <Switch>
               {publicRoutes.map((pr,index)=>(<Route key={index} {...pr}></Route>))}
             </Switch>

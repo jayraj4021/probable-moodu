@@ -28,15 +28,6 @@ const SignIn = () => {
     }
   }
 
-  const handleLogout = async () => {
-    try {
-      const { error } = await supabase.auth.signOut()
-      alert('SignOut successful!!!!')
-    } catch (error) {
-      alert(error.error_description || error.message)
-    }
-  }
-
   return (
     <div className='signinContainer'>
         <p>Enter Email</p>

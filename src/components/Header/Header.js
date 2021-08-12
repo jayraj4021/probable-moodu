@@ -2,16 +2,26 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { supabase } from '../../supabaseClient';
 import { Link } from 'react-router-dom';
 import './Header.css'
 
-export default function Header() {
+export default function Header({session}) {
 
   const widthCheckQuery = useMediaQuery('(min-width:600px)');
 
   let toolBarClass = 'toolBar';
   if(widthCheckQuery){
     toolBarClass += ' bigScreenPadding'
+  }
+
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut()
+      alert('SignOut successful!!!!')
+    } catch (error) {
+      alert(error.error_description || error.message)
+    }
   }
 
   return (
@@ -22,7 +32,18 @@ export default function Header() {
               Moodu
             </Typography>
           </Link>
-         
+         {session ? 
+            <Button variant="contained" 
+                    color="secondary" 
+                    size='small' 
+                    onClick={(e)=>{
+                        e.preventDefault();
+                        handleLogout()
+                      }}
+                    style={{color:'white'}} >
+                      Sign Out
+            </Button>
+         :
           <Link to="/signin">
             <Button variant="contained" 
                     color="secondary" 
@@ -31,7 +52,7 @@ export default function Header() {
                       Sign In
             </Button>
           </Link>
-        
+        }
         </div>
     </div>
   );
