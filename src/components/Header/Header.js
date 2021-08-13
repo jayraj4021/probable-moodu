@@ -9,27 +9,19 @@ import { supabase } from '../../supabaseClient';
 import { Link} from 'react-router-dom';
 import './Header.css'
 
-export default function Header({session,setSession,history}) {
+export default function Header({session,setSession,history,homeCompToShow,setHomeCompToShow,menuItems}) {
 
   const widthCheckQuery = useMediaQuery('(min-width:600px)');
   
   const [anchorEl, setAnchorEl] = useState(null);
-  const [compToShow, setCompToShow] = useState(0);
-
-  const menuItems = [
-    {id:'0', name:'Profile'},
-    {id:'1', name:'Make an entry'},
-    {id:'2', name:'Previous Entries'},
-    {id:'3', name:'Logout'},
-  ]
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = (event) => {
+  const handleClose = (menuItemId) => {
     setAnchorEl(null);
-    console.log(event.target.textContent)
+    setHomeCompToShow(menuItemId);
   };
 
   const StyledMenu = withStyles({
@@ -106,20 +98,11 @@ export default function Header({session,setSession,history}) {
                   onClose={handleClose}
                 >
                     {menuItems.map(el=>(
-                        <StyledMenuItem onClick={handleClose} 
-                        selected={el.id===0}>
+                        <StyledMenuItem onClick={()=>{handleClose(el.id)}} 
+                        selected={el.id===homeCompToShow}>
                           {el.name}
                         </StyledMenuItem>
                     ))}
-                    
-
-                    {/* <StyledMenuItem onClick={handleClose} 
-                    selected={compToShow===1}>
-                      Previous Notes
-                    </StyledMenuItem>
-                    <StyledMenuItem onClick={handleClose} >
-                      Logout
-                    </StyledMenuItem>*/}
                 </StyledMenu> 
               </div>
             <Button variant="contained" 

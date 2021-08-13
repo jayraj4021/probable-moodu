@@ -23,13 +23,10 @@ const Home = () => {
       fetchData();
     },[]);
 
-    console.log(previousNotes)
-
     return (
         <div className='homeContainer'>
           <h2 style={{paddingBottom:'20px'}}>Hi User,</h2>
           <div style={{width:'100%',display:'flex',flexDirection:'column',alignItems:'flex-start',paddingBottom:'20px'}}>
-            <h3>Let's create today's note</h3>
             <DataEntry/>
           </div>
           <div style={{width:'100%',display:'flex',flexDirection:'column',alignItems:'flex-start',paddingBottom:'20px'}}>
