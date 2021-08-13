@@ -3,11 +3,10 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { supabase } from '../../supabaseClient';
-import { Link, useHistory } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import './Header.css'
 
-export default function Header({session}) {
-  let history = useHistory();
+export default function Header({session,setSession,history}) {
 
   const widthCheckQuery = useMediaQuery('(min-width:600px)');
 
@@ -19,7 +18,8 @@ export default function Header({session}) {
   const handleLogout = async () => {
     try {
       const { error } = await supabase.auth.signOut()
-      alert('SignOut successful!!!!')
+      //alert('SignOut successful!!!!')
+      setSession(null)
       history.push('/');
     } catch (error) {
       alert(error.error_description || error.message)

@@ -1,18 +1,15 @@
 import { useState } from 'react';
 import { supabase } from '../../supabaseClient';
-import { useHistory } from "react-router-dom";
 import './signin.css';
 import Button from '@material-ui/core/Button';
 
-const SignIn = () => {
-  
-  let history = useHistory();
+const SignIn = ({setSession,history}) => {
 
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleLogin = async (email,password) => {
+  const handleLogin = async (email,password,history) => {
     try {
       setLoading(true)
       const { user, session, error } = await supabase.auth.signIn({
@@ -20,12 +17,15 @@ const SignIn = () => {
         password,
       })
       if (error) throw error;
-      alert('Signin successful!!!!');
+      //alert('Signin successful!!!!');
+      setSession(session);
+      console.log('test')
       history.push("/home");
       console.log('try block',user,session);
     } catch (error) {
       alert(error.error_description || error.message)
       console.log('catch error block')
+      setLoading(false)
     } finally {
       //setLoading(false)
       console.log('finally block')
@@ -58,7 +58,7 @@ const SignIn = () => {
                 size='small' 
                 onClick={(e) => {
                     e.preventDefault()
-                    handleLogin(email,password)
+                    handleLogin(email,password,history)
                 }}
                 disabled={loading}
                 style={{color:'white', width:'100%'}}>

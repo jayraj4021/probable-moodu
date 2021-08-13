@@ -20,7 +20,6 @@ const SignUp = () => {
             password
           })
           if (error) throw error
-          // alert('Check your email for the verification link!')
           setShowMessage(true)
           console.log('try block',user,session)
         } catch (error) {
