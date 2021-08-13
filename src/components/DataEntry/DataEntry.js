@@ -4,13 +4,13 @@ import { supabase } from '../../supabaseClient';
 
 const DataEntry = () => {
 
-  const [rating, setRating] = useState(0)
+  const [rating, setRating] = useState(5)
   const [mood, setMood] = useState('')
   const [todaysNote, setTodaysNote] = useState('')
   const [loading, setLoading] = useState(false)
 
   const currentUser = supabase.auth.user()
-  console.log(currentUser)
+  //console.log(currentUser)
 
   const handleSubmit = async () => {
         const { data, error } = await supabase

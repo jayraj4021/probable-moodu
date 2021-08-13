@@ -13,10 +13,10 @@ function App() {
   
   let history = useHistory();
   const menuItems = [
-    {id:'0', name:"Profile"},
-    {id:'1', name:"Today's Note"},
-    {id:'2', name:"Previous Entries"},
-    {id:'3', name:"Analytics"},
+    {id:0, name:"Profile"},
+    {id:1, name:"Today's Note"},
+    {id:2, name:"Previous Entries"},
+    {id:3, name:"Analytics"},
   ]
  
   const [session, setSession] = useState(null);
@@ -36,8 +36,8 @@ function App() {
         <div style={{display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column'}}>
           <Header session={session} setSession={setSession} history={history} homeCompToShow={homeCompToShow} setHomeCompToShow={setHomeCompToShow} menuItems={menuItems}/>
           <Switch>
-              <Route path="/" exact render={()=><Home/>}/>
-              <Route path="/home" exact render={()=><Home/>}/>
+              <Route path="/" exact render={()=><Home homeCompToShow={homeCompToShow}/>}/>
+              <Route path="/home" exact render={()=><Home homeCompToShow={homeCompToShow}/>}/>
           </Switch>
         </div>
         :
