@@ -19,6 +19,7 @@ export default function Header({session,setSession,history}) {
     try {
       const { error } = await supabase.auth.signOut()
       //alert('SignOut successful!!!!')
+      if (error) throw error;
       setSession(null)
       history.push('/');
     } catch (error) {

@@ -34,19 +34,18 @@ function App() {
         <div style={{display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column'}}>
           <Header session={session} setSession={setSession} history={history}/>
           <Switch>
+              <Route path="/" exact render={()=><Home/>}/>
               <Route path="/home" exact render={()=><Home/>}/>
           </Switch>
         </div>
         :
         <div style={{display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column'}}>
-        
             <Header session={session} setSession={setSession} history={history}/>
             <Switch>
               <Route path="/" exact render={()=><LandingPage/>}/>
               <Route path="/signin" exact render={()=><SignIn setSession={setSession} history={history}/>}/>
               <Route path="/signup" exact render={()=><SignUp/>}/>
             </Switch>
-          
         </div>
       }
     </div>
