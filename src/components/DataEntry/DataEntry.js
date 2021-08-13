@@ -1,5 +1,6 @@
 import {React,useState} from 'react';
 import Button from '@material-ui/core/Button';
+import { supabase } from '../../supabaseClient';
 
 const DataEntry = () => {
 
@@ -8,8 +9,20 @@ const DataEntry = () => {
   const [todaysNote, setTodaysNote] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = () => {
+  const currentUser = supabase.auth.user()
+  console.log(currentUser)
 
+  const handleSubmit = async () => {
+        const { data, error } = await supabase
+        .from('data_table')
+        .insert([
+          {   rating,
+              mood,
+              'body':todaysNote,
+              created_date:new Date().toISOString().slice(0, 10),
+              creator_id:currentUser.id
+           },
+        ])
   }
 
   return (
