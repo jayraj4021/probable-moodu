@@ -5,7 +5,8 @@ import DataCard from '../../components/DataCard/DataCard';
 import DataEntry from '../../components/DataEntry/DataEntry';
 
 const Home = ({homeCompToShow}) => {
-  console.log(homeCompToShow)
+
+    console.log(homeCompToShow)
 
     // Get user name from profile table
     let currentUser = supabase.auth.user();

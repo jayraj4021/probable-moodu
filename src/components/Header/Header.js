@@ -97,8 +97,8 @@ export default function Header({session,setSession,history,homeCompToShow,setHom
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                    {menuItems.map(el=>(
-                        <StyledMenuItem onClick={()=>{handleClose(el.id)}} 
+                    {menuItems.map((el,index)=>(
+                        <StyledMenuItem key={index} onClick={()=>{handleClose(el.id)}} 
                         selected={el.id===homeCompToShow}>
                           {el.name}
                         </StyledMenuItem>
