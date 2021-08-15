@@ -9,7 +9,7 @@ import { supabase } from '../../supabaseClient';
 import { Link} from 'react-router-dom';
 import './Header.css'
 
-export default function Header({session,setSession,history,homeCompToShow,setHomeCompToShow,menuItems}) {
+export default function Header({session,setSession,history,homeCompToShow,setHomeCompToShow,menuItems,fname,lname}) {
 
   const widthCheckQuery = useMediaQuery('(min-width:600px)');
   

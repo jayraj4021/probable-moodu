@@ -3,11 +3,34 @@ import { supabase } from '../../supabaseClient';
 import './signin.css';
 import Button from '@material-ui/core/Button';
 
-const SignIn = ({setSession,history}) => {
+const SignIn = ({setSession,history,setFname,setLname,setHomeCompToShow,setFirstLogin}) => {
 
-  const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  setHomeCompToShow(1);
+  setFirstLogin(false);
+
+  async function fetchData(){
+    try {
+        let { data: profiles, error } = await supabase
+        .from('profiles')
+        .select('*');
+        if (error) throw error
+        console.log(profiles)
+        if(profiles.length===0){
+          setFirstLogin(true)
+          setHomeCompToShow(0)
+        } else {
+          setFname(profiles[0].firstname)
+          setLname(profiles[0].lastname)
+        }
+    } catch (error) {
+        alert(error.error_description || error.message)
+    } finally {
+        
+    }
+  }
 
   const handleLogin = async (email,password,history) => {
     try {
@@ -19,7 +42,8 @@ const SignIn = ({setSession,history}) => {
       if (error) throw error;
       //alert('Signin successful!!!!');
       setSession(session);
-      console.log('test')
+      fetchData();
+      console.log('test');
       history.push("/home");
       console.log('try block',user,session);
     } catch (error) {

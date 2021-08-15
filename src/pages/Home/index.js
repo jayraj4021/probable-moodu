@@ -3,13 +3,11 @@ import './home.css';
 import { supabase } from '../../supabaseClient';
 import DataCard from '../../components/DataCard/DataCard';
 import DataEntry from '../../components/DataEntry/DataEntry';
+import HomeProfile from '../../components/HomeProfile/HomeProfile';
 
-const Home = ({homeCompToShow}) => {
+const Home = ({homeCompToShow,fname,lname,setFname,setLname,firstLogin}) => {
 
     console.log(homeCompToShow)
-
-    // Get user name from profile table
-    let currentUser = supabase.auth.user();
 
     // Get the data to display
     const [previousNotes,setPreviousNotes] = useState([])
@@ -30,7 +28,7 @@ const Home = ({homeCompToShow}) => {
     const compRender = (homeCompToShow) => {
       switch(homeCompToShow){
         case 0:
-          return <div>case 0</div>;
+          return <HomeProfile setFname={setFname} setLname={setLname} firstLogin={firstLogin}/>;
         case 1:
           return <DataEntry/>;
         case 2:
@@ -52,7 +50,7 @@ const Home = ({homeCompToShow}) => {
 
     return (
         <div className='homeContainer'>
-          <h2 style={{paddingBottom:'20px'}}>Hi User,</h2>
+          {homeCompToShow!=0?<h2 style={{paddingBottom:'20px'}}>Hi {fname+' '+lname},</h2>:<h2>Update Profile</h2>}
           <div style={{width:'100%',display:'flex',flexDirection:'column',alignItems:'flex-start',paddingBottom:'20px'}}>
             {compRender(homeCompToShow)}
           </div>
