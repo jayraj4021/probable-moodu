@@ -3,6 +3,10 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-  width: 95%;
+  width: 100%;
   padding: 20px 20px;
+}
+
+.homeBigScreenPadding {
+  padding: 20px 20%;
 }

@@ -27,7 +27,7 @@ const DataEntry = () => {
 
   return (
     <div style={{width:'100%',backgroundColor:'#393E46',borderRadius:'5px',padding:'20px',
-                display:'flex',alignItems:'flex-start',flexDirection:'column'}}>
+                display:'flex',alignItems:'flex-start',flexDirection:'column',fontFamily:'Open Sans, sans-serif'}}>
         <p>Select Today's Rating</p>
         <input
             type="number"
@@ -51,7 +51,7 @@ const DataEntry = () => {
             placeholder="Please unload your thoughts ...."
             value={todaysNote}
             onChange={(e) => setTodaysNote(e.target.value)}
-            style={{width:'100%',maxWidth:'100%', height:'30px',marginBottom:'25px', padding:'0px 10px'}}
+            style={{width:'100%',maxWidth:'100%', height:'120px',marginBottom:'25px', padding:'0px 10px'}}
         />
         <div style={{width:'100%'}}>
               <Button 

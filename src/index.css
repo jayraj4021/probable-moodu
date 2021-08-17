@@ -25,6 +25,8 @@ body {
   color: var(--color4);
 }
 
+input, textarea { font-family:inherit }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

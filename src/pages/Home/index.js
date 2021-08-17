@@ -4,10 +4,12 @@ import { supabase } from '../../supabaseClient';
 import DataCard from '../../components/DataCard/DataCard';
 import DataEntry from '../../components/DataEntry/DataEntry';
 import HomeProfile from '../../components/HomeProfile/HomeProfile';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const Home = ({homeCompToShow,fname,lname,setFname,setLname,firstLogin}) => {
 
     console.log(homeCompToShow)
+    const widthCheckQuery = useMediaQuery('(min-width:600px)');
 
     // Get the data to display
     const [previousNotes,setPreviousNotes] = useState([])
@@ -37,7 +39,10 @@ const Home = ({homeCompToShow,fname,lname,setFname,setLname,firstLogin}) => {
               display:'flex',
               flexDirection:'column',
               alignItems:'flex-start'}}>
-                {el.created_date}
+                <div style={{backgroundColor:'#00ADB5', 
+                  padding:'2px 7px', 
+                  borderTopLeftRadius:'5px',
+                  borderTopRightRadius:'5px'}}>{el.created_date}</div>
                 <DataCard noteData={el}/>
             </div>
           )));
@@ -48,9 +53,14 @@ const Home = ({homeCompToShow,fname,lname,setFname,setLname,firstLogin}) => {
       }
     }
 
+    let homeClass = 'homeContainer';
+    if(widthCheckQuery){
+      homeClass += ' homeBigScreenPadding'
+    }
+
     return (
-        <div className='homeContainer'>
-          {homeCompToShow!=0?<h2 style={{paddingBottom:'20px'}}>Hi {fname+' '+lname},</h2>:<h2>Update Profile</h2>}
+        <div className={homeClass}>
+          {homeCompToShow!=0?<h2 style={{paddingBottom:'20px'}}>Hi {fname+' '+lname}👋,</h2>:<h2>Update Profile</h2>}
           <div style={{width:'100%',display:'flex',flexDirection:'column',alignItems:'flex-start',paddingBottom:'20px'}}>
             {compRender(homeCompToShow)}
           </div>
