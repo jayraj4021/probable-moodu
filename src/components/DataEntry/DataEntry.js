@@ -1,4 +1,4 @@
-import {React,useState} from 'react';
+import {React,useState,useEffect} from 'react';
 import Button from '@material-ui/core/Button';
 import { supabase } from '../../supabaseClient';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -16,12 +16,32 @@ const DataEntry = () => {
   const [mood, setMood] = useState('')
   const [todaysNote, setTodaysNote] = useState('')
   const [loading, setLoading] = useState(false)
+  const [todaysEntryDone, setTodaysEntryDone] = useState(false)
 
   const [openSuccess, setOpenSuccess] = useState(false)
   const [openError, setOpenError] = useState(false)
 
   const currentUser = supabase.auth.user()
   //console.log(currentUser)
+
+  useEffect(() => {
+    async function getDataForToday() {
+        let { data: data_table, error } = await supabase
+        .from('data_table')
+        .select("*")
+        .eq('created_date', new Date().toISOString().slice(0, 10))
+
+        console.log(data_table)
+
+        if (data_table.length !== 0) {
+            setRating(data_table[0].rating)
+            setMood(data_table[0].mood)
+            setTodaysNote(data_table[0].body)
+            setTodaysEntryDone(true)
+        }
+    }
+    getDataForToday();
+  }, [])
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -32,18 +52,18 @@ const DataEntry = () => {
   };
 
   const handleSubmit = async () => {
-      try{
-            setLoading(true);
+      if (todaysEntryDone) {
+        try{
+            setLoading(true); 
             const { data, error } = await supabase
             .from('data_table')
-            .insert([
-            {   rating,
+            .update({ 
+                rating,
                 mood,
                 'body':todaysNote,
-                created_date:new Date().toISOString().slice(0, 10),
                 creator_id:currentUser.id
-            },
-            ]);
+             })
+            .eq('created_date', new Date().toISOString().slice(0, 10))
             if(error) throw error;
             setOpenSuccess(true);
         } catch(error) {
@@ -51,6 +71,27 @@ const DataEntry = () => {
         } finally {
             setLoading(false);
         }
+      } else{
+        try{
+                setLoading(true);
+                const { data, error } = await supabase
+                .from('data_table')
+                .insert([
+                {   rating,
+                    mood,
+                    'body':todaysNote,
+                    created_date:new Date().toISOString().slice(0, 10),
+                    creator_id:currentUser.id
+                },
+                ]);
+                if(error) throw error;
+                setOpenSuccess(true);
+            } catch(error) {
+                setOpenError(true);
+            } finally {
+                setLoading(false);
+            }
+    }
   }
 
   return (
