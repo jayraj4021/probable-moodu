@@ -116,15 +116,16 @@ const DataEntry = () => {
         />
 
         <div style={{display:'flex'}}>
-            <p style={{paddingRight:'5px'}}>Enter Today's Mood </p>
+            <p style={{paddingRight:'5px'}}>Enter Today's Mood (20 characters max)</p>
             <Tooltip 
-                title="Enter a mood describing your day" 
+                title="Enter a mood describing your day -- Happy, Sad, Angry, Fear etc" 
                 placement="top" arrow>
                 <InfoOutlinedIcon style={{opacity:'0.5'}}/>
             </Tooltip>
         </div>
         <input
-            type="test"
+            type="text"
+            maxlength="20"
             placeholder="Your dominant mood for the day"
             value={mood}
             onChange={(e) => setMood(e.target.value)}

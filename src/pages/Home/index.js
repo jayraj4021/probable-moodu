@@ -15,7 +15,7 @@ const Home = ({homeCompToShow,fname,lname,setFname,setLname,firstLogin}) => {
     const [previousNotes,setPreviousNotes] = useState([])
 
     useEffect(() => {
-      if (homeCompToShow==2){
+      if (homeCompToShow===2){
         async function fetchData(){
           let { data: data_table, error } = await supabase
           .from('data_table')
@@ -60,7 +60,7 @@ const Home = ({homeCompToShow,fname,lname,setFname,setLname,firstLogin}) => {
 
     return (
         <div className={homeClass}>
-          {homeCompToShow!=0?<h2 style={{paddingBottom:'20px'}}>Hi {fname+' '+lname}👋,</h2>:<h2>Update Profile</h2>}
+          {homeCompToShow!==0?<h2 style={{paddingBottom:'20px'}}>Hi {fname+' '+lname}👋,</h2>:<h2>Update Profile</h2>}
           <div style={{width:'100%',display:'flex',flexDirection:'column',alignItems:'flex-start',paddingBottom:'20px'}}>
             {compRender(homeCompToShow)}
           </div>
