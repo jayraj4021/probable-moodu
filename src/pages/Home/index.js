@@ -4,6 +4,7 @@ import { supabase } from '../../supabaseClient';
 import DataCard from '../../components/DataCard/DataCard';
 import DataEntry from '../../components/DataEntry/DataEntry';
 import HomeProfile from '../../components/HomeProfile/HomeProfile';
+import Analytics from '../../components/Analytics/Analytics';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const Home = ({homeCompToShow,fname,lname,setFname,setLname,firstLogin}) => {
@@ -34,11 +35,11 @@ const Home = ({homeCompToShow,fname,lname,setFname,setLname,firstLogin}) => {
         case 1:
           return <DataEntry/>;
         case 2:
-          return (previousNotes.map(el=>(
+          return (previousNotes.map((el,idx)=>(
             <div style={{width:'100%',paddingBottom:'20px',
               display:'flex',
               flexDirection:'column',
-              alignItems:'flex-start'}}>
+              alignItems:'flex-start'}} key={idx}>
                 <div style={{backgroundColor:'#00ADB5', 
                   padding:'2px 7px', 
                   borderTopLeftRadius:'5px',
@@ -47,7 +48,7 @@ const Home = ({homeCompToShow,fname,lname,setFname,setLname,firstLogin}) => {
             </div>
           )));
         case 3:
-          return <div>case 3</div>;
+          return <Analytics/>;
         default:
           return <div>Default</div>
       }

@@ -32,5 +32,13 @@ code {
     monospace;
 }
 
+.MuiInputBase-input {
+  color: #EEEEEE !important;
+}
+
+.MuiInput-underline::before {
+  border-bottom: 1px solid #00ADB5 !important;
+}
+
 
 
