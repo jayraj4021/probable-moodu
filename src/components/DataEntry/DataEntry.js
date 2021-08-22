@@ -143,6 +143,7 @@ const DataEntry = () => {
         <textarea
             placeholder="Please unload your thoughts ...."
             value={todaysNote}
+            maxlength="1000"
             onChange={(e) => setTodaysNote(e.target.value)}
             style={{width:'100%',maxWidth:'100%', height:'120px',marginBottom:'25px', padding:'0px 10px'}}
         />

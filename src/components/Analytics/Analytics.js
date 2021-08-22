@@ -70,8 +70,8 @@ const Analytics = () => {
             let { data: data_table, error } = await supabase
             .from('data_table')
             .select('*')
-            .gt('created_date',startDate.toISOString())
-            .lt('created_date',endDate.toISOString())
+            .gte('created_date',startDate.toISOString())
+            .lte('created_date',endDate.toISOString())
   
             setData(data_table);
           };
@@ -94,8 +94,8 @@ const Analytics = () => {
             data.filter(el1=>el1.created_date === el).map(el2=>el2.rating)[0] : null)
         })
 
-        setDateList([...dateList])
-        setRatingData([...ratingList])
+        setDateList([...dateList].reverse())
+        setRatingData([...ratingList].reverse())
 
     },[startDate, endDate,data])
 

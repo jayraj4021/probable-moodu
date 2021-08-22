@@ -9,6 +9,12 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const Home = ({homeCompToShow,fname,lname,setFname,setLname,firstLogin}) => {
 
+    const todaysDate = new Date()
+    const sevenDaysBackDate = new Date(todaysDate)
+    sevenDaysBackDate.setDate(sevenDaysBackDate.getDate() - 7)
+    const [startDate, setStartDate] = useState(sevenDaysBackDate);
+    const [endDate, setEndDate] = useState(todaysDate);
+
     console.log(homeCompToShow)
     const widthCheckQuery = useMediaQuery('(min-width:600px)');
 
@@ -20,13 +26,15 @@ const Home = ({homeCompToShow,fname,lname,setFname,setLname,firstLogin}) => {
         async function fetchData(){
           let { data: data_table, error } = await supabase
           .from('data_table')
-          .select('*');
+          .select('*')
+          .gt('created_date',startDate.toISOString())
+          .lte('created_date',endDate.toISOString())
 
           setPreviousNotes(data_table);
         };
         fetchData();
       }
-    },[homeCompToShow]);
+    },[homeCompToShow,startDate,endDate]);
 
     const compRender = (homeCompToShow) => {
       switch(homeCompToShow){
@@ -43,7 +51,8 @@ const Home = ({homeCompToShow,fname,lname,setFname,setLname,firstLogin}) => {
                 <div style={{backgroundColor:'#00ADB5', 
                   padding:'2px 7px', 
                   borderTopLeftRadius:'5px',
-                  borderTopRightRadius:'5px'}}>{el.created_date}</div>
+                  borderTopRightRadius:'5px'}}>{el.created_date}
+                </div>
                 <DataCard noteData={el}/>
             </div>
           )));

@@ -3,7 +3,8 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 import { Switch, Route, useHistory } from "react-router-dom";
-import Header from './components/Header/Header'
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import LandingPage from "./pages/LandingPage";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -15,7 +16,7 @@ function App() {
   const menuItems = [
     {id:0, name:"Profile"},
     {id:1, name:"Today's Note"},
-    {id:2, name:"Previous Entries"},
+    {id:2, name:"Previous 7 Entries"},
     {id:3, name:"Analytics"},
   ]
  
@@ -42,6 +43,7 @@ function App() {
               <Route path="/" exact render={()=><Home homeCompToShow={homeCompToShow} fname={fname} lname={lname} setFname={setFname} setLname={setLname} firstLogin={firstLogin}/>}/>
               <Route path="/home" exact render={()=><Home homeCompToShow={homeCompToShow} fname={fname} lname={lname} setFname={setFname} setLname={setLname} firstLogin={firstLogin}/>}/>
           </Switch>
+          <Footer/>
         </div>
         :
         <div style={{display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column'}}>
@@ -51,6 +53,7 @@ function App() {
               <Route path="/signin" exact render={()=><SignIn setSession={setSession} history={history} setFname={setFname} setLname={setLname} setHomeCompToShow={setHomeCompToShow} setFirstLogin={setFirstLogin}/>}/>
               <Route path="/signup" exact render={()=><SignUp/>}/>
             </Switch>
+            <Footer/>
         </div>
       }
     </div>
