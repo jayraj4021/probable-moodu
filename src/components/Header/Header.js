@@ -75,7 +75,7 @@ export default function Header({session,setSession,history,homeCompToShow,setHom
         <div className={toolBarClass}>
           <Link to='/' style={{color:'white', textDecoration:'none'}}>
             <Typography variant="h6" >
-              Moodu
+              Daily300
             </Typography>
           </Link>
          {session ? 

@@ -8,7 +8,7 @@ const Footer = () => {
 
     return (
         <div style={{width:'100%'}} className='footerBar'>
-            © {year} Moodu
+            © {year} Daily300
         </div>
     )
 }

@@ -21,7 +21,7 @@ const LandingPage = () => {
                 <img src={MainImage} alt='Thought Vector' style={{width:'80%'}}/>
             </div>
             <div style={{flex:'1 1 0'}}>
-                <Typography variant='h4'>Moodu helps you evaluate your life.</Typography>
+                <Typography variant='h4'>Daily300 helps you evaluate your life.</Typography>
                 <Typography variant='h6'>All you need to do is enter a rating, mood and note for the day. 
                     We facilitate you with charts to find trend in your data.
                     Lets get started.</Typography>
