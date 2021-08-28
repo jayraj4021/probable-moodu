@@ -6,7 +6,7 @@ import {
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import { Line } from "react-chartjs-2";
-import { colors } from '@material-ui/core';
+// import { colors } from '@material-ui/core';
 
 
 
@@ -67,13 +67,17 @@ const Analytics = () => {
 
     useEffect(()=>{
         async function fetchData(){
-            let { data: data_table, error } = await supabase
-            .from('data_table')
-            .select('*')
-            .gte('created_date',startDate.toISOString())
-            .lte('created_date',endDate.toISOString())
-  
-            setData(data_table);
+            try{
+                let { data: data_table, error } = await supabase
+                .from('data_table')
+                .select('*')
+                .gte('created_date',startDate.toISOString())
+                .lte('created_date',endDate.toISOString())
+                if (error) throw error
+                setData(data_table);
+            } catch (error) {
+                alert(error)
+            }
           };
           fetchData();
     },[startDate,endDate]);

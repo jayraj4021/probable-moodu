@@ -12,7 +12,9 @@ const Home = ({homeCompToShow,fname,lname,setFname,setLname,firstLogin}) => {
     const todaysDate = new Date()
     const sevenDaysBackDate = new Date(todaysDate)
     sevenDaysBackDate.setDate(sevenDaysBackDate.getDate() - 7)
+    // eslint-disable-next-line
     const [startDate, setStartDate] = useState(sevenDaysBackDate);
+    // eslint-disable-next-line
     const [endDate, setEndDate] = useState(todaysDate);
 
     console.log(homeCompToShow)
@@ -24,6 +26,7 @@ const Home = ({homeCompToShow,fname,lname,setFname,setLname,firstLogin}) => {
     useEffect(() => {
       if (homeCompToShow===2){
         async function fetchData(){
+          // eslint-disable-next-line
           let { data: data_table, error } = await supabase
           .from('data_table')
           .select('*')

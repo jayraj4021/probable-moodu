@@ -38,7 +38,8 @@ const HomeProfile = ({setFname,setLname,firstLogin}) => {
         if (firstLogin){
             try{
                 setLoading(true)
-                const { data, error } = await supabase
+                // const { data, error } = await supabase
+                const { error } = await supabase
                 .from('profiles')
                 .insert([
                     {   
@@ -49,6 +50,7 @@ const HomeProfile = ({setFname,setLname,firstLogin}) => {
                     },
                 ])
                 setLoading(false)
+                if(error) throw error;
             } catch (error){
                 alert(error.error_description || error.message)
                 setLoading(false)

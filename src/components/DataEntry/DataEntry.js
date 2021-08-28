@@ -26,18 +26,20 @@ const DataEntry = () => {
 
   useEffect(() => {
     async function getDataForToday() {
-        let { data: data_table, error } = await supabase
-        .from('data_table')
-        .select("*")
-        .eq('created_date', new Date().toISOString().slice(0, 10))
-
-        console.log(data_table)
-
-        if (data_table.length !== 0) {
-            setRating(data_table[0].rating)
-            setMood(data_table[0].mood)
-            setTodaysNote(data_table[0].body)
-            setTodaysEntryDone(true)
+        try{
+            let { data: data_table, error } = await supabase
+            .from('data_table')
+            .select("*")
+            .eq('created_date', new Date().toISOString().slice(0, 10))
+            if(error) throw error;
+            if (data_table.length !== 0) {
+                setRating(data_table[0].rating)
+                setMood(data_table[0].mood)
+                setTodaysNote(data_table[0].body)
+                setTodaysEntryDone(true)
+            }
+        } catch(error) {
+            alert(error)
         }
     }
     getDataForToday();
@@ -55,7 +57,8 @@ const DataEntry = () => {
       if (todaysEntryDone) {
         try{
             setLoading(true); 
-            const { data, error } = await supabase
+            // const { data, error } = await supabase
+            const { error } = await supabase
             .from('data_table')
             .update({ 
                 rating,
@@ -74,7 +77,8 @@ const DataEntry = () => {
       } else{
         try{
                 setLoading(true);
-                const { data, error } = await supabase
+                // const { data, error } = await supabase
+                const { error } = await supabase
                 .from('data_table')
                 .insert([
                 {   rating,
